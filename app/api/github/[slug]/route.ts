@@ -4,10 +4,11 @@ import { getGitHubStats, getReadme } from '@/lib/github';
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const project = await getProjectBySlug(params.slug);
+    const { slug } = await params;
+    const project = await getProjectBySlug(slug);
 
     if (!project) {
       return NextResponse.json(

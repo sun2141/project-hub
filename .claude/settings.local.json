@@ -4,7 +4,12 @@
       "Bash(node:*)",
       "Bash(npm uninstall:*)",
       "Bash(npm run init-db:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(vercel --version:*)",
+      "Bash(npm run build:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

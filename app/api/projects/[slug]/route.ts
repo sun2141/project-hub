@@ -3,10 +3,11 @@ import { getProjectBySlug, updateProject, deleteProject, getProjectLogs } from '
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const project = await getProjectBySlug(params.slug);
+    const { slug } = await params;
+    const project = await getProjectBySlug(slug);
 
     if (!project) {
       return NextResponse.json(
@@ -32,10 +33,11 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const project = await getProjectBySlug(params.slug);
+    const { slug } = await params;
+    const project = await getProjectBySlug(slug);
 
     if (!project) {
       return NextResponse.json(
@@ -59,10 +61,11 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const project = await getProjectBySlug(params.slug);
+    const { slug } = await params;
+    const project = await getProjectBySlug(slug);
 
     if (!project) {
       return NextResponse.json(
