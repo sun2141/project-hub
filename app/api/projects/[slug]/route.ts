@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getProjectBySlug, updateProject, deleteProject } from '@/lib/projects';
+import { getProjectBySlug, updateProject, deleteProject, getProjectLogs } from '@/lib/projects';
 
 export async function GET(
   request: Request,
@@ -15,7 +15,12 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({ success: true, data: project });
+    const logs = await getProjectLogs(project.id);
+
+    return NextResponse.json({
+      success: true,
+      data: { project, logs }
+    });
   } catch (error: any) {
     console.error('Error fetching project:', error);
     return NextResponse.json(

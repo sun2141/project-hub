@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run init-db:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}
