@@ -131,3 +131,41 @@ export async function getGitHubStats(githubUrl: string) {
     commits,
   };
 }
+
+// Get user's GitHub repositories
+export interface UserRepository {
+  id: number;
+  name: string;
+  full_name: string;
+  description: string | null;
+  html_url: string;
+  language: string | null;
+  stargazers_count: number;
+  updated_at: string;
+  private: boolean;
+}
+
+export async function getUserRepositories(): Promise<UserRepository[]> {
+  try {
+    const { data } = await octokit.rest.repos.listForAuthenticatedUser({
+      sort: 'updated',
+      per_page: 100,
+      affiliation: 'owner',
+    });
+
+    return data.map((repo) => ({
+      id: repo.id,
+      name: repo.name,
+      full_name: repo.full_name,
+      description: repo.description,
+      html_url: repo.html_url,
+      language: repo.language,
+      stargazers_count: repo.stargazers_count,
+      updated_at: repo.updated_at || '',
+      private: repo.private,
+    }));
+  } catch (error) {
+    console.error('Error fetching user repositories:', error);
+    return [];
+  }
+}
